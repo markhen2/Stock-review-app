@@ -1,1 +1,4 @@
 C:\Users\markh\OneDrive\Documents\My stock app\.venv
+# Ignore virtual environment directories
+.venv/
+venv/

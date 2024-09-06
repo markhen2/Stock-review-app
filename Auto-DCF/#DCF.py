@@ -3,7 +3,13 @@ import yfinance as yf
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+import sys
+import os
 
+
+# Now you can use functions from fetch_basic_data
+# Example:
+# stock_info = fetch_basic_data.get_stockinfo('AAPL')
 class DCF:
     def __init__(self, ticker):
         self.ticker = ticker
