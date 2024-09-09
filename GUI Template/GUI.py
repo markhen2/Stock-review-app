@@ -12,6 +12,7 @@ fundamentals=''
 
 
 def preprocess(ticker,report_question):
+    global dcf, news, fundamentals
     dcf=1
     news=2
     fundamentals=3
