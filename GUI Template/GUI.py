@@ -3,25 +3,22 @@ import tkinter as tk
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-
+import fetch_basic_data
 
 dcf=""
 news=''
 fundamentals=''
+stock_data = fetch_basic_data.StockData('AAPL')
 
 
-
-def preprocess(ticker,report_question):
-    global dcf, news, fundamentals
-    dcf=1
-    news=2
-    fundamentals=3
+#def preprocess(ticker,report_question):
+    
 
 def run_report():
     ticker=ticker.get()
-    report_question=report.get()
+    #report_question=report.get()
 
-    preprocess(dcf,news,fundamentals)
+    #preprocess(dcf,news,fundamentals)
     app.destroy()
 
 customtkinter.set_appearance_mode('dark')
