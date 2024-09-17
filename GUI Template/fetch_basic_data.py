@@ -1,5 +1,8 @@
 import yfinance as yf
 import pandas as pd
+import datetime
+from datetime import datetime
+from datetime import timedelta
 
 class StockData:
     def __init__(self, ticker):
@@ -9,11 +12,15 @@ class StockData:
     def get_stockinfo(self):
         return pd.Series(self.stock.info).head(20)
 
-    def get_daily_stock_pricing(self, start_date, end_date):
+    def get_daily_stock_pricing(self):
+        end_date=datetime.today()
+        start_date=end_date-timedelta(days=365)
         df = yf.download(self.ticker, start=start_date, end=end_date)
         return df['Adj Close']
 
-    def get_daily_stock(self, start_date, end_date):
+    def get_daily_stock(self):
+        end_date=datetime.today()
+        start_date=end_date-timedelta(days=365)
         stock_data = self.stock.history(start=start_date, end=end_date)
         return stock_data
 
