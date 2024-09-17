@@ -41,19 +41,3 @@ class StockData:
 
     def get_calander(self):
         self.ticker.calendar
-
-    # Create an instance of the StockData class
-stock_data = StockData('AAPL')
-
-# Call the methods
-stock_info = stock_data.get_stockinfo()
-daily_pricing = stock_data.get_daily_stock_pricing('2023-01-01', '2023-01-31')
-daily_stock = stock_data.get_daily_stock('2023-01-01', '2023-01-31')
-minute_stock_data = stock_data.get_minute_stock_data('2023-01-01', '2023-01-02')
-calander=stock_data.get_calander()
-
-# Print the results
-print(stock_info)
-print(daily_pricing)
-print(daily_stock)
-print(minute_stock_data)
