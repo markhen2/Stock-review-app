@@ -37,13 +37,22 @@ def search_ticker():
     ticker = ticker_input.get()
     ticker_info_window = Toplevel(app)
     ticker_info_window.title('Ticker Information')
-    ticker_info_window.geometry('800x600')
+    ticker_info_window.geometry('900x700')
 
     # Basic stock information
     fetch_class = fetch_basic_data.StockData(ticker)
     info = fetch_class.get_stockinfo()
-    customtkinter.CTkLabel(ticker_info_window, text=info, text_color='black').grid(row=1, column=0)
-    customtkinter.CTkLabel(ticker_info_window, text='Ticker Information', text_color='black').grid(row=0, column=0)
+    info_df=pd.DataFrame(info)
+    
+    address=str(info_df.loc['address1']).split('\n')[0].split('    ')[1], str(info_df.loc['country']).split('\n')[0].split('    ')[1]
+    sector=str(info_df.loc['sector']).split('\n')[0].split('    ')[1]
+    website=str(info_df.loc['website']).split('\n')[0].split('    ')[1]
+
+    customtkinter.CTkLabel(ticker_info_window, text=f'Company name {ticker}', text_color='black').grid(row=1, column=0,sticky='w')
+    customtkinter.CTkLabel(ticker_info_window, text=f'Company address {address}', text_color='black').grid(row=2, column=0,sticky='w')
+    customtkinter.CTkLabel(ticker_info_window, text=f'Stock sector {sector}', text_color='black').grid(row=3, column=0,sticky='w')
+    customtkinter.CTkLabel(ticker_info_window, text=f'Company website {website}', text_color='black').grid(row=4, column=0,sticky='w')
+
 
     # Pricing data retrieval
     pricing = fetch_class.get_daily_stock()  # Corrected method call
@@ -57,7 +66,7 @@ def search_ticker():
     max_year = pricing_close.tail(255).max()
 
     # Plot
-    fig, ax = plt.subplots()
+    fig, ax = plt.subplots(figsize=(8, 5))
     pricing['Close'].plot(ax=ax)
     ax.set_xlabel('Date')
     ax.set_ylabel(f'Price of {ticker}')
@@ -65,12 +74,11 @@ def search_ticker():
 
     canvas = FigureCanvasTkAgg(fig, master=ticker_info_window)
     canvas.draw()
-    canvas.get_tk_widget().grid(row=20, column=4)
+    canvas.get_tk_widget().grid(row=10, column=0)
 
-    customtkinter.CTkLabel(ticker_info_window, text='Stock Analysis', text_color='black').grid(row=10, column=1)
-    customtkinter.CTkLabel(ticker_info_window, text=f'Current Price: {y_close_price}', text_color='black').grid(row=11, column=1)
-    customtkinter.CTkLabel(ticker_info_window, text=f'Monthly range: {min_month} - {max_month}', text_color='black').grid(row=12, column=1)
-    customtkinter.CTkLabel(ticker_info_window, text=f'Yearly range: {min_year} - {max_year}', text_color='black').grid(row=17, column=1)
+    customtkinter.CTkLabel(ticker_info_window, text=f'Current Price: {y_close_price}', text_color='black').grid(row=5, column=0)
+    customtkinter.CTkLabel(ticker_info_window, text=f'Monthly range: {min_month} - {max_month}', text_color='black').grid(row=6, column=0)
+    customtkinter.CTkLabel(ticker_info_window, text=f'Yearly range: {min_year} - {max_year}', text_color='black').grid(row=7, column=0)
 
 
 
