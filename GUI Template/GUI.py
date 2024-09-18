@@ -10,23 +10,9 @@ from tkinter import Toplevel
 import plotly.graph_objects as go
 import plotly.express as px
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
-
+from m_carlo import monte_carlo
 
 data = fetch_basic_data
-
-#DCF Class logic
-
-#News Class logic (SOURCE FROM PROXY DATABASE)
-
-#ARI Suggestions and past buys import
-
-#Fundamentals Class logic
-
-
-#technical analysis class logic
-
-
-#def preprocess(ticker,report_question):
 
 
 
@@ -80,23 +66,11 @@ def search_ticker():
     customtkinter.CTkLabel(ticker_info_window, text=f'Monthly range: {min_month} - {max_month}', text_color='black').grid(row=6, column=0)
     customtkinter.CTkLabel(ticker_info_window, text=f'Yearly range: {min_year} - {max_year}', text_color='black').grid(row=7, column=0)
 
-
-
-customtkinter.set_appearance_mode('dark')
-app=customtkinter.CTk()
-app.geometry('400*300')
-app.title('Stock Analysis')
-
-
-
-
 def run_ARI():
     ARI_window=Toplevel(app)
     ARI_window.title('ARI Analysis')
     ARI_window.geometry('800x600')
-
     Label(ARI_window,text='ARI Analysis').pack()
-
 
 def run_dcf():
     dcf_window=Toplevel(app)
@@ -105,15 +79,63 @@ def run_dcf():
 
     Label(dcf_window,text='DCF Analysis').pack()
 
+def relevant_news():
+    news_window=Toplevel(app)
+    news_window.title('Relevant News')
+    news_window.geometry('800x600')
 
+    Label(news_window,text='Relevant News').pack()
+
+def mcarlo_sim():
+    ticker=ticker_input.get()
+    number_simulations = int(number_simulations_input.get())
+    prediction_days = int(projection_length_input.get())
+
+    mcarlo_window=Toplevel(app)
+    mcarlo_window.title('Monte Carlo Simulation')
+    mcarlo_window.geometry('800x600')
+    Label(mcarlo_window,text='Monte Carlo Simulation').pack()
+    customtkinter.CTkLabel(app, text='# Days to predict').grid(row=0, column=0)
+    projection_length_input = Entry(mcarlo_window, width=20) 
+    projection_length_input.grid(row=0, column=1)
+
+    customtkinter.CTkLabel(app, text='# Of Simulations to run').grid(row=1, column=0)
+    number_simulations_input = Entry(mcarlo_window, width=20) 
+    number_simulations_input.grid(row=1, column=1)
+    customtkinter.CTkButton(app, text='Submit', command=lambda:monte_carlo(ticker,prediction_days,number_simulations)).grid(row=3, column=1)
+ 
+
+def interest_rate_tracker():
+    interest_window=Toplevel(app)
+    interest_window.title('Interest Rate Tracker')
+    interest_window.geometry('800x600')
+
+    Label(interest_window,text='Interest Rate Tracker').pack()
+
+def economic_indicators():
+    economic_window=Toplevel(app)
+    economic_window.title('Economic Indicators')
+    economic_window.geometry('800x600')
+
+    Label(economic_window,text='Economic Indicators').pack()
+
+
+customtkinter.set_appearance_mode('light')
+app=customtkinter.CTk()
+app.geometry('400*300')
+app.title('Stock Analysis')
+
+ticker_input = Entry(app, width=20)
+ticker_input.grid(row=0, column=1)
+
+
+
+customtkinter.CTkLabel(app, text='Enter a ticker here please').grid(row=0, column=0)
+customtkinter.CTkButton(app, text='submit', command=search_ticker).grid(row=0, column=2)
 
 customtkinter.CTkButton(app,text='Open DCF Analysis' , command=run_dcf).grid(row=4,column=2)
 customtkinter.CTkButton(app,text='Fetch optimal past buy/sell points',command=run_ARI).grid(row=5,column=2)
 customtkinter.CTkButton(app,text='Close application',command=close_report).grid(row=7,column=2)
-
-customtkinter.CTkLabel(app, text='Enter a ticker here please').grid(row=0, column=0)
-ticker_input = Entry(app, width=20)
-ticker_input.grid(row=0, column=1)
-customtkinter.CTkButton(app, text='submit', command=search_ticker).grid(row=0, column=2)
+customtkinter.CTkButton(app,text='Monte Carlo Simulation',command=mcarlo_sim).grid(row=8,column=2)
 
 app.mainloop()
