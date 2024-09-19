@@ -11,7 +11,7 @@ import plotly.graph_objects as go
 import plotly.express as px
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from m_carlo import monte_carlo
-from tkinter.filedialog import asksaveasfilename
+
 
 data = fetch_basic_data
 
@@ -71,14 +71,18 @@ def run_ARI():
     ARI_window=Toplevel(app)
     ARI_window.title('ARI Analysis')
     ARI_window.geometry('800x600')
-    Label(ARI_window,text='ARI Analysis').pack()
+    
+    def create_ARI_report():
+        ticker = ticker_input.get()
+        
+
 
 def run_dcf():
     dcf_window=Toplevel(app)
     dcf_window.title('DCF Analysis')
     dcf_window.geometry('800x600')
 
-    Label(dcf_window,text='DCF Analysis').pack()
+
 
 def relevant_news():
     news_window=Toplevel(app)
@@ -150,9 +154,9 @@ ticker_input.grid(row=0, column=1)
 customtkinter.CTkLabel(app, text='Enter a ticker here please').grid(row=0, column=0)
 customtkinter.CTkButton(app, text='submit', command=search_ticker).grid(row=0, column=2)
 
-customtkinter.CTkButton(app,text='Open DCF Analysis' , command=run_dcf).grid(row=4,column=2)
-customtkinter.CTkButton(app,text='Fetch optimal past buy/sell points',command=run_ARI).grid(row=5,column=2)
-customtkinter.CTkButton(app,text='Close application',command=close_report).grid(row=7,column=2)
-customtkinter.CTkButton(app,text='Monte Carlo Simulation',command=mcarlo_sim).grid(row=8,column=2)
+customtkinter.CTkButton(app,text='Open DCF Analysis' , command=run_dcf).grid(row=4,column=2, sticky='w')
+customtkinter.CTkButton(app,text='Fetch optimal past buy/sell points',command=run_ARI).grid(row=5,column=2, sticky='w')
+customtkinter.CTkButton(app,text='Monte Carlo Simulation',command=mcarlo_sim).grid(row=7,column=2, sticky='w')
+customtkinter.CTkButton(app,text='Close application',command=close_report).grid(row=8,column=2,sticky='w')
 
 app.mainloop()
