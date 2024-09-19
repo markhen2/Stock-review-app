@@ -11,6 +11,7 @@ import plotly.graph_objects as go
 import plotly.express as px
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from m_carlo import monte_carlo
+from tkinter.filedialog import asksaveasfilename
 
 data = fetch_basic_data
 
@@ -88,22 +89,38 @@ def relevant_news():
 
 def mcarlo_sim():
     ticker=ticker_input.get()
-    number_simulations = int(number_simulations_input.get())
-    prediction_days = int(projection_length_input.get())
-
+    
     mcarlo_window=Toplevel(app)
     mcarlo_window.title('Monte Carlo Simulation')
-    mcarlo_window.geometry('800x600')
-    Label(mcarlo_window,text='Monte Carlo Simulation').pack()
-    customtkinter.CTkLabel(app, text='# Days to predict').grid(row=0, column=0)
-    projection_length_input = Entry(mcarlo_window, width=20) 
-    projection_length_input.grid(row=0, column=1)
+    mcarlo_window.geometry('1000x600')
+    
 
-    customtkinter.CTkLabel(app, text='# Of Simulations to run').grid(row=1, column=0)
+    customtkinter.CTkLabel(mcarlo_window, text='# Days to predict').grid(row=1, column=0)
+    projection_length_input = Entry(mcarlo_window, width=20) 
+    projection_length_input.grid(row=1, column=1)
+    
+    customtkinter.CTkLabel(mcarlo_window, text='# Of Simulations to run').grid(row=2, column=0)
     number_simulations_input = Entry(mcarlo_window, width=20) 
-    number_simulations_input.grid(row=1, column=1)
-    customtkinter.CTkButton(app, text='Submit', command=lambda:monte_carlo(ticker,prediction_days,number_simulations)).grid(row=3, column=1)
- 
+    number_simulations_input.grid(row=2, column=1)
+
+    def run_mcarlo_sim():
+        number_simulations=int(number_simulations_input.get())
+        prediction_days=int(projection_length_input.get())
+        monte_carlo(ticker, number_simulations, prediction_days)
+    
+    
+    customtkinter.CTkButton(mcarlo_window, text='Run SIM', command=run_mcarlo_sim).grid(row=3, column=0, sticky='w')
+    
+    
+    fig, ax = plt.subplots(figsize=(8, 5))
+    ax.grid()
+    canvas = FigureCanvasTkAgg(fig, master=mcarlo_window)
+    canvas.draw()
+    canvas.get_tk_widget().grid(row=6, column=0)
+    
+    #mcarlo_window.grid_rowconfigure(4, weight=1)
+    #mcarlo_window.grid_columnconfigure(0, weight=1)
+    #mcarlo_window.grid_columnconfigure(1, weight=1)
 
 def interest_rate_tracker():
     interest_window=Toplevel(app)

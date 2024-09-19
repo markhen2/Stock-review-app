@@ -4,14 +4,13 @@ import yfinance as yf
 import matplotlib.pyplot as plt
 from datetime import datetime, timedelta
 from scipy.stats import norm
-import math
-import random
+
 
 
 
 def monte_carlo(ticker,prediction_days,number_simulations):
     end_date=datetime.today()
-    start_date = end_date - timedelta(days={prediction_days})
+    start_date = end_date - timedelta(days=365)
     df = yf.download(ticker, start=start_date, end=end_date)
     log_returns = np.log(df['Close'] / df['Close'].shift(1))
 
@@ -123,5 +122,5 @@ def monte_carlo(ticker,prediction_days,number_simulations):
         ax.annotate(f'{upper_bound_95[-1]:.2f}', xy=(days_to_forecast - 1, upper_bound_95[-1]), xycoords='data',
                     xytext=(-15, 0), textcoords='offset points', color='red')
 
-
+    plt.show()
 
