@@ -83,7 +83,6 @@ def run_dcf():
     dcf_window.geometry('800x600')
 
 
-
 def relevant_news():
     news_window=Toplevel(app)
     news_window.title('Relevant News')
