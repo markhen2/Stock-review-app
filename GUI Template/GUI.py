@@ -11,6 +11,7 @@ import plotly.graph_objects as go
 import plotly.express as px
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from m_carlo import monte_carlo
+from DCF import DCF
 
 
 data = fetch_basic_data
@@ -81,6 +82,15 @@ def run_dcf():
     dcf_window=Toplevel(app)
     dcf_window.title('DCF Analysis')
     dcf_window.geometry('800x600')
+
+    ticker=ticker_input.get()
+    dcf_model = DCF(ticker)
+    projected_share_price = dcf_model.calculate_projected_share_price()
+
+    customtkinter.CTkLabel(dcf_window, text=f'Projected Share Price: {projected_share_price}', text_color='black').grid(row=1, column=0)
+
+
+
 
 
 def relevant_news():

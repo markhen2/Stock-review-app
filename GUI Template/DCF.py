@@ -135,6 +135,7 @@ class DCF:
 
 
 # Example usage
-dcf_model = DCF('MSFT')  # Replace 'AAPL' with the desired ticker symbol
-projected_share_price = dcf_model.calculate_projected_share_price()
-print("Projected Share Price:", projected_share_price)
+
+#dcf_model = DCF('MSFT')  # Replace 'AAPL' with the desired ticker symbol
+#projected_share_price = dcf_model.calculate_projected_share_price()
+#print("Projected Share Price:", projected_share_price)
