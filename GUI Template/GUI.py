@@ -88,7 +88,10 @@ def run_dcf():
     projected_share_price = dcf_model.calculate_projected_share_price()
 
     customtkinter.CTkLabel(dcf_window, text=f'Projected Share Price: {projected_share_price}', text_color='black').grid(row=1, column=0)
-
+    customtkinter.CTkLabel(dcf_window, text=f'WACC: {dcf_model.calculate_wacc()}', text_color='black').grid(row=2, column=0)
+    customtkinter.CTkLabel(dcf_window, text=f'Free Cash Flow: {dcf_model.calculate_fcf()}', text_color='black').grid(row=3, column=0)
+    customtkinter.CTkLabel(dcf_window, text=f'DCF: {dcf_model.calculate_dcf()}', text_color='black').grid(row=4, column=0)
+    customtkinter.CTkLabel(dcf_window, text=f'Outstanding Shares: {dcf_model.get_outstanding_shares()}', text_color='black').grid(row=5, column=0)
 
 
 
@@ -161,7 +164,7 @@ ticker_input.grid(row=0, column=1)
 
 
 customtkinter.CTkLabel(app, text='Enter a ticker here please').grid(row=0, column=0)
-customtkinter.CTkButton(app, text='submit', command=search_ticker).grid(row=0, column=2)
+customtkinter.CTkButton(app, text='Stock data', command=search_ticker).grid(row=0, column=2)
 
 customtkinter.CTkButton(app,text='Open DCF Analysis' , command=run_dcf).grid(row=4,column=2, sticky='w')
 customtkinter.CTkButton(app,text='Fetch optimal past buy/sell points',command=run_ARI).grid(row=5,column=2, sticky='w')
