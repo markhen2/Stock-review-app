@@ -3,7 +3,6 @@ import yfinance as yf
 import pandas as pd
 
 
-
 def run_ARI(ticker):    
     crossover_points = {} #dictionary to store the dataframes for each ticke
 
@@ -40,8 +39,8 @@ def run_ARI(ticker):
 
     trade_points=combined
     if not trade_points.empty:
-        trade_points['time between Trades'] = -trade_points['Date'].diff()
-        trade_points.loc[trade_points['time between Trades'] < pd.Timedelta(days=7), 'time between Trades'] = 'No Trade'
+        trade_points['Time between Trades'] = -trade_points['Date'].diff()
+        trade_points.loc[trade_points['Time between Trades'] < pd.Timedelta(days=7), 'Time between Trades'] = 'No Trade'
         trade_points['Override'] = 'Trade'
         # Ensure the condition is applied correctly
 
@@ -61,5 +60,6 @@ def run_ARI(ticker):
 
     updated_trade_points = pd.concat(all_trade_points)
     updated_trade_points=updated_trade_points.sort_values('Date', ascending=False)
+    updated_trade_points.reset_index()
 
-    return updated_trade_points
+    return updated_trade_points[['Action','Date','Price','Override']]

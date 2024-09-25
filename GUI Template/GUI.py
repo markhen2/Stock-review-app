@@ -12,7 +12,33 @@ import plotly.express as px
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from m_carlo import monte_carlo
 from DCF import DCF
+from ARI import run_ARI
 
+
+import tkinter as tk
+from tkinter import ttk
+import pandas as pd
+
+def display_dataframe(parent,df):
+           # Create a Treeview widget
+    tree = ttk.Treeview(parent)
+    
+    # Define the columns
+    tree["columns"] = list(df.columns)
+    tree["show"] = "headings"
+    
+    # Set the column headings
+    for col in df.columns:
+        tree.heading(col, text=col)
+        tree.column(col, anchor="center")
+    
+    # Add the data to the Treeview
+    for index, row in df.iterrows():
+        tree.insert("", "end", values=list(row))
+    
+    # Pack the Treeview widget
+    tree.pack(expand=True, fill="both")
+    
 
 data = fetch_basic_data
 
@@ -68,13 +94,16 @@ def search_ticker():
     customtkinter.CTkLabel(ticker_info_window, text=f'Monthly range: {min_month} - {max_month}', text_color='black').grid(row=6, column=0)
     customtkinter.CTkLabel(ticker_info_window, text=f'Yearly range: {min_year} - {max_year}', text_color='black').grid(row=7, column=0)
 
-def run_ARI():
+def display_ARI():
     ARI_window=Toplevel(app)
     ARI_window.title('ARI Analysis')
     ARI_window.geometry('800x600')
     
-    def create_ARI_report():
-        ticker = ticker_input.get()
+    ticker=ticker_input.get()
+
+    df=run_ARI(ticker)
+    display_dataframe(ARI_window,df)
+    
         
 
 
@@ -169,6 +198,7 @@ customtkinter.CTkButton(app, text='Stock data', command=search_ticker).grid(row=
 customtkinter.CTkButton(app,text='Open DCF Analysis' , command=run_dcf).grid(row=4,column=2, sticky='w')
 customtkinter.CTkButton(app,text='Fetch optimal past buy/sell points',command=run_ARI).grid(row=5,column=2, sticky='w')
 customtkinter.CTkButton(app,text='Monte Carlo Simulation',command=mcarlo_sim).grid(row=7,column=2, sticky='w')
+customtkinter.CTkButton(app,text='ARI',command=display_ARI).grid(row=9,column=2, sticky='w')
 customtkinter.CTkButton(app,text='Close application',command=close_report).grid(row=8,column=2,sticky='w')
 
 app.mainloop()
