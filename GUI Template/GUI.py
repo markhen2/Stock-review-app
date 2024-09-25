@@ -18,18 +18,44 @@ from tkinter import ttk
 import pandas as pd
 from update_available import is_update_available, start_update_process
 from version import __version__
+import time
 
 
 def main():
+    # Create the main window
+    root = tk.Tk()
+    root.title("Stock Analysis App")
+
+    # Create a text widget to display messages
+    text_widget = tk.Text(root, wrap='word', height=10, width=50)
+    text_widget.pack(padx=10, pady=10)
+
+    def log_message(message):
+        text_widget.insert(tk.END, message + "\n")
+        text_widget.see(tk.END)
+        root.update_idletasks()
+
     # Check for updates on startup
+    log_message("Checking for updates...")
     if is_update_available():
-        print("New update is available. Starting update process.")
+        log_message("New update is available. Starting update process.")
         start_update_process()
-        exit()
+        root.destroy()
+        return
+    else:
+        log_message("No updates available.")
 
     # Continue with the main application logic
-    print("Running the application as usual.")
+    log_message("Running the application as usual.")
+    time.sleep(3)
+    root.destroy()
     # Your app's main logic here
+
+    # Start the Tkinter main loop
+    root.mainloop()
+
+if __name__ == "__main__":
+    main()
 
 
 
