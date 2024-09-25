@@ -1,3 +1,0 @@
-([('GUI',
-   '/Users/markhenry/Documents/Stock-review-app/dist/GUI',
-   'EXECUTABLE')],)

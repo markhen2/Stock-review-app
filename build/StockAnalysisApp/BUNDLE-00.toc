@@ -1,3 +1,0 @@
-([('StockAnalysisApp',
-   '/Users/markhenry/Documents/Stock-review-app/dist/StockAnalysisApp',
-   'EXECUTABLE')],)
