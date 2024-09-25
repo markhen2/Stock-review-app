@@ -4,16 +4,16 @@
 block_cipher = None
 
 a = Analysis(
-    ['/Users/markhenry/Documents/Stock-review-app/GUI Template/GUI.py'],
-    pathex=['/Users/markhenry/Documents/Stock-review-app/GUI Template'],
+    [r'C:\Users\markh\OneDrive\Documents\Stock-review-app\GUI Template\GUI.py'],
+    pathex=[r'C:\Users\markh\OneDrive\Documents\Stock-review-app\GUI Template'],
     binaries=[],
     datas=[
-        ('/Users/markhenry/Documents/Stock-review-app/GUI Template/version.py', '.'),  
-        ('/Users/markhenry/Documents/Stock-review-app/GUI Template/ARI.py', '.'),      
-        ('/Users/markhenry/Documents/Stock-review-app/GUI Template/DCF.py', '.'),
-        ('/Users/markhenry/Documents/Stock-review-app/GUI Template/m_carlo.py', '.'),
-        ('/Users/markhenry/Documents/Stock-review-app/GUI Template/fetch_basic_data.py', '.'),
-        ('/Users/markhenry/Documents/Stock-review-app/GUI Template/update_available.py', '.')
+        (r'C:\Users\markh\OneDrive\Documents\Stock-review-app\GUI Template\version.py', '.'),  
+        (r'C:\Users\markh\OneDrive\Documents\Stock-review-app\GUI Template\ARI.py', '.'),      
+        (r'C:\Users\markh\OneDrive\Documents\Stock-review-app\GUI Template\DCF.py', '.'),
+        (r'C:\Users\markh\OneDrive\Documents\Stock-review-app\GUI Template\m_carlo.py', '.'),
+        (r'C:\Users\markh\OneDrive\Documents\Stock-review-app\GUI Template\fetch_basic_data.py', '.'),
+        (r'C:\Users\markh\OneDrive\Documents\Stock-review-app\GUI Template\update_available.py', '.')
     ],
     hiddenimports=[
         'customtkinter',
