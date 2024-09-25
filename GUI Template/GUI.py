@@ -13,11 +13,25 @@ from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from m_carlo import monte_carlo
 from DCF import DCF
 from ARI import run_ARI
-
-
 import tkinter as tk
 from tkinter import ttk
 import pandas as pd
+from update_available import is_update_available, start_update_process
+from version import __version__
+
+
+def main():
+    # Check for updates on startup
+    if is_update_available():
+        print("New update is available. Starting update process.")
+        start_update_process()
+        exit()
+
+    # Continue with the main application logic
+    print("Running the application as usual.")
+    # Your app's main logic here
+
+
 
 def display_dataframe(parent,df):
            # Create a Treeview widget

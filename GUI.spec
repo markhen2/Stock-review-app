@@ -1,54 +1,69 @@
+# StockAnalysisApp.spec
 # -*- mode: python ; coding: utf-8 -*-
 
+block_cipher = None
 
 a = Analysis(
     ['/Users/markhenry/Documents/Stock-review-app/GUI Template/GUI.py'],
     pathex=['/Users/markhenry/Documents/Stock-review-app/GUI Template'],
     binaries=[],
-    datas=[],
+    datas=[
+        ('/Users/markhenry/Documents/Stock-review-app/GUI Template/version.py', '.'),  
+        ('/Users/markhenry/Documents/Stock-review-app/GUI Template/ARI.py', '.'),      
+        ('/Users/markhenry/Documents/Stock-review-app/GUI Template/DCF.py', '.'),
+        ('/Users/markhenry/Documents/Stock-review-app/GUI Template/m_carlo.py', '.'),
+        ('/Users/markhenry/Documents/Stock-review-app/GUI Template/fetch_basic_data.py', '.'),
+        ('/Users/markhenry/Documents/Stock-review-app/GUI Template/update_available.py', '.')
+    ],
     hiddenimports=[
-        'm_carlo',
         'customtkinter',
         'tkinter',
         'pandas',
         'numpy',
         'matplotlib',
         'fetch_basic_data',
-        'plotly',
-        
+        'plotly.graph_objects',
+        'plotly.express',
+        'm_carlo',
+        'DCF',
+        'ARI',
+        'update_available',
+        'version',
+        'yfinance'
     ],
     hookspath=[],
-    hooksconfig={},
     runtime_hooks=[],
     excludes=[],
-    noarchive=False,
-    optimize=0,
+    win_no_prefer_redirects=False,
+    win_private_assemblies=False,
+    cipher=block_cipher,
 )
-pyz = PYZ(a.pure)
+pyz = PYZ(a.pure, a.zipped_data, cipher=block_cipher)
 
 exe = EXE(
     pyz,
     a.scripts,
-    a.binaries,
-    a.datas,
     [],
-    name='GUI',
+    exclude_binaries=True,
+    name='StockAnalysisApp',
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,
     upx=True,
-    upx_exclude=[],
-    runtime_tmpdir=None,
     console=False,
     disable_windowed_traceback=False,
-    argv_emulation=False,
     target_arch=None,
     codesign_identity=None,
     entitlements_file=None,
 )
-app = BUNDLE(
+
+coll = COLLECT(
     exe,
-    name='StockAnalyticsV1.0.1',
-    icon=None,
-    bundle_identifier=None,
+    a.binaries,
+    a.zipfiles,
+    a.datas,
+    strip=False,
+    upx=True,
+    upx_exclude=[],
+    name='StockAnalysisApp'
 )
