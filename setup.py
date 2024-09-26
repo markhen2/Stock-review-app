@@ -1,10 +1,11 @@
 from setuptools import setup
 
-APP = ['GUI Template/GUI.py']  # Replace with the entry point to your GUI
+APP = ['GUI_Template/GUI.py']  # Replace with the entry point to your GUI
 DATA_FILES = []  # Add any non-Python files your app needs, such as images, config files, etc.
 OPTIONS = {
     'argv_emulation': True,  # Allows for drag-and-drop in the dock
-    'packages': ['GUI Template.ARI','GUI Template.DCF','GUI Template.fetch_basic_data','GUI Template.m_carlo','GUI Template.update_available','GUI Template.version'],  # List any Python dependencies
+    'packages': [],  # List any Python dependencies
+    'excludes': ['PyInstaller','PyInstaller.hooks.hook-PySide6.QtPositioning', 'PyInstaller.hooks.hook-scipy.sparse.csgraph', 'PyQt6.QtSerialPort'],
 }
 
 setup(
