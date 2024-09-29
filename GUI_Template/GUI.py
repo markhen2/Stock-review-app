@@ -35,22 +35,29 @@ def main():
         text_widget.see(tk.END)
         root.update_idletasks()
 
+    def on_update_confirm():
+        log_message("Starting update process.")
+        start_update_process()
+        root.destroy()
+    
+    def on_update_cancel():
+        log_message("Update canceled. Exiting application.")
+        root.destroy()   
+        
     # Check for updates on startup
     log_message("Checking for updates...")
     if is_update_available():
-        log_message("New update is available. Starting update process.")
-        start_update_process()
-        root.destroy()
-        return
+        log_message("New update is available.")
+        update_frame = tk.Frame(root)
+        update_frame.pack(pady=10)
+        tk.Button(update_frame, text="Update Now", command=on_update_confirm).pack(side=tk.LEFT, padx=5)
+        tk.Button(update_frame, text="Cancel", command=on_update_cancel).pack(side=tk.LEFT, padx=5)
     else:
         log_message("No updates available.")
-
-    # Continue with the main application logic
-    log_message("Running the application as usual.")
-    time.sleep(3)
-    root.destroy()
-    # Your app's main logic here
-
+        # Continue with the main application logic
+        log_message("Running the application as usual.")
+        time.sleep(3)
+        root.destroy()
     # Start the Tkinter main loop
     root.mainloop()
 
@@ -145,8 +152,6 @@ def display_ARI():
     display_dataframe(ARI_window,df)
     
         
-
-
 def run_dcf():
     dcf_window=Toplevel(app)
     dcf_window.title('DCF Analysis')
@@ -161,8 +166,6 @@ def run_dcf():
     customtkinter.CTkLabel(dcf_window, text=f'Free Cash Flow: {dcf_model.calculate_fcf()}', text_color='black').grid(row=3, column=0)
     customtkinter.CTkLabel(dcf_window, text=f'DCF: {dcf_model.calculate_dcf()}', text_color='black').grid(row=4, column=0)
     customtkinter.CTkLabel(dcf_window, text=f'Outstanding Shares: {dcf_model.get_outstanding_shares()}', text_color='black').grid(row=5, column=0)
-
-
 
 
 def relevant_news():
@@ -221,6 +224,10 @@ def economic_indicators():
 
     Label(economic_window,text='Economic Indicators').pack()
 
+
+def optimal_options():
+    ticker=ticker_input.get()
+    
 
 customtkinter.set_appearance_mode('light')
 app=customtkinter.CTk()
