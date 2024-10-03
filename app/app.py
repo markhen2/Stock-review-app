@@ -3,6 +3,7 @@ import tkinter as tk
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+from tkinter import Toplevel, Entry, filedialog
 import fetch_basic_data
 from tkinter import *
 from tkinter.ttk import *
@@ -13,12 +14,12 @@ from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from m_carlo import monte_carlo
 from DCF import DCF
 from ARI import run_ARI
-import tkinter as tk
 from tkinter import ttk
 import pandas as pd
 from update_available import is_update_available, start_update_process
 from version import __version__
 import time
+from Heatmap import heatmap
 
 
 def main():
@@ -224,6 +225,28 @@ def economic_indicators():
 
     Label(economic_window,text='Economic Indicators').pack()
 
+def run_heatmap():
+    ticker=ticker_input.get()
+    sector=sector_dropdown.get()
+    heatmap_window=Toplevel(app)
+    heatmap_window.title('Heatmap')
+    heatmap_window.geometry('1000x600')
+    fig=heatmap(sector,ticker)
+
+    #fig ,ax= plt.subplots(figsize=(10, 6))
+
+    canvas = FigureCanvasTkAgg(fig, master=heatmap_window)
+    canvas.draw()
+    canvas.get_tk_widget().pack(expand=True, fill='both') 
+    
+    def save_plot():
+        file_path = filedialog.asksaveasfilename(defaultextension=".png", filetypes=[("PNG files", "*.png"), ("All files", "*.*")])
+        if file_path:
+            fig.savefig(file_path)
+
+    save_button = customtkinter.CTkButton(heatmap_window, text='Save Heatmap', command=save_plot)
+    save_button.pack(pady=10)
+ 
 
 def optimal_options():
     ticker=ticker_input.get()
@@ -247,5 +270,11 @@ customtkinter.CTkButton(app,text='Fetch optimal past buy/sell points',command=ru
 customtkinter.CTkButton(app,text='Monte Carlo Simulation',command=mcarlo_sim).grid(row=7,column=2, sticky='w')
 customtkinter.CTkButton(app,text='ARI',command=display_ARI).grid(row=9,column=2, sticky='w')
 customtkinter.CTkButton(app,text='Close application',command=close_report).grid(row=8,column=2,sticky='w')
+customtkinter.CTkButton(app,text='Create heatmap',command=run_heatmap).grid(row=10,column=2,sticky='w')
+
+#Heatmap options:
+sector_options=["Utilities","Energy",'Discretionaries']
+sector_dropdown=customtkinter.CTkOptionMenu(app,values=sector_options)
+sector_dropdown.grid(row=10,column=1, sticky='w')
 
 app.mainloop()
