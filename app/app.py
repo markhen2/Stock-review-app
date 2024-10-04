@@ -21,7 +21,7 @@ from version import __version__
 import time
 from Heatmap import heatmap
 
-asset_name='Stockreview.exe'
+asset_name='dist'
 def main():
     # Create the main window
     root = tk.Tk()
@@ -245,7 +245,7 @@ def run_heatmap():
             fig.savefig(file_path)
 
     save_button = customtkinter.CTkButton(heatmap_window, text='Save Heatmap', command=save_plot)
-    save_button.pack(pady=10)
+    save_button.pack(pady=5)
  
 
 def optimal_options():

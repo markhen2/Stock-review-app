@@ -5,7 +5,7 @@ import subprocess
 import time
 from version import __version__  # Ensure your app version is stored here
 
-
+asset_name='app.py'
 def get_latest_release_info():
     api_url = "https://api.github.com/repos/markhen2/Stock-review-app/releases/latest"
     try:
@@ -18,6 +18,7 @@ def get_latest_release_info():
         return None
 
 def is_update_available():
+    global latest_version
     release_info = get_latest_release_info()
     if not release_info:
         return False  # If there's an error fetching release data, no update
@@ -72,6 +73,20 @@ def download_latest_release(asset_name):
         print(f"Error downloading update: {e}")
         return None
 
+
+
+def update_version_file(new_version):
+    version_file_path = 'version.py'
+    try:
+        with open(version_file_path, 'w') as version_file:
+            version_file.write(f"__version__ = '{new_version}'\n")
+        print(f"Updated version file to {new_version}")
+    except Exception as e:
+        print(f"Error updating version file: {e}")
+
+
+
+
 def apply_update(new_exe_path, current_exe_path):
     try:
         time.sleep(2)  # Wait for the app to fully close (if necessary)
@@ -80,6 +95,7 @@ def apply_update(new_exe_path, current_exe_path):
         shutil.move(new_exe_path, current_exe_path)
         print("Application updated successfully.")
 
+        update_version_file(latest_version)
         # Relaunch the application
         subprocess.Popen([current_exe_path])
     except Exception as e:
@@ -87,7 +103,7 @@ def apply_update(new_exe_path, current_exe_path):
 
 def start_update_process():
     if is_update_available():
-        new_exe_path = download_latest_release()
+        new_exe_path = download_latest_release(asset_name)
         if new_exe_path:
             current_exe_path = __file__  # Path to the current executable
             apply_update(new_exe_path, current_exe_path)
