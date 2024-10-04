@@ -21,7 +21,7 @@ from version import __version__
 import time
 from Heatmap import heatmap
 
-
+asset_name='Stockreview.exe'
 def main():
     # Create the main window
     root = tk.Tk()
@@ -205,7 +205,7 @@ def mcarlo_sim():
     ax.grid()
     canvas = FigureCanvasTkAgg(fig, master=mcarlo_window)
     canvas.draw()
-    canvas.get_tk_widget().grid(row=6, column=0)
+    canvas.get_tk_widget().pack(expand=True, fill='both') 
     
     #mcarlo_window.grid_rowconfigure(4, weight=1)
     #mcarlo_window.grid_columnconfigure(0, weight=1)

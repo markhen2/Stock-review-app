@@ -5,6 +5,7 @@ import subprocess
 import time
 from version import __version__  # Ensure your app version is stored here
 
+
 def get_latest_release_info():
     api_url = "https://api.github.com/repos/markhen2/Stock-review-app/releases/latest"
     try:
@@ -30,7 +31,7 @@ if is_update_available():
 else:
     print("No update available.")
 
-def download_latest_release():
+def download_latest_release(asset_name):
     release_info = get_latest_release_info()
     if not release_info:
         return None
@@ -40,13 +41,19 @@ def download_latest_release():
         print("No assets found in the latest release.")
         return None
 
-    download_url = assets[0].get('browser_download_url')
+    # Search for the specified asset
+    download_url = None
+    for asset in assets:
+        if asset.get('name') == asset_name:
+            download_url = asset.get('browser_download_url')
+            break
+
     if not download_url:
-        print("No download URL found for the asset.")
+        print(f"No download URL found for the asset named {asset_name}.")
         return None
 
     output_dir = "downloads"
-    output_path = os.path.join(output_dir, "new_version.exe")
+    output_path = os.path.join(output_dir, f"{asset_name}")
 
     # Ensure the downloads directory exists
     os.makedirs(output_dir, exist_ok=True)
