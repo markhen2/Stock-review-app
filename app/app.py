@@ -265,7 +265,7 @@ ticker_input.grid(row=0, column=1)
 customtkinter.CTkLabel(app, text='Enter a ticker here please').grid(row=0, column=0)
 customtkinter.CTkButton(app, text='Stock data', command=search_ticker).grid(row=0, column=2)
 
-customtkinter.CTkButton(app,text='Open DCF Analysis' , command=run_dcf).grid(row=4,column=2, sticky='w')
+#customtkinter.CTkButton(app,text='Open DCF Analysis' , command=run_dcf).grid(row=4,column=2, sticky='w')
 customtkinter.CTkButton(app,text='Fetch optimal past buy/sell points',command=run_ARI).grid(row=5,column=2, sticky='w')
 customtkinter.CTkButton(app,text='Monte Carlo Simulation',command=mcarlo_sim).grid(row=7,column=2, sticky='w')
 customtkinter.CTkButton(app,text='ARI',command=display_ARI).grid(row=9,column=2, sticky='w')
