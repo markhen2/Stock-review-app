@@ -4,7 +4,7 @@ import yfinance as yf
 import matplotlib.pyplot as plt
 from datetime import datetime, timedelta
 from scipy.stats import norm
-import customtkinter
+
 import tkinter as tk
 import pandas as pd
 import numpy as np
@@ -14,8 +14,11 @@ from tkinter import *
 from tkinter.ttk import *
 from tkinter import ttk
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+from tkinter import font
 
 plt.style.use('ggplot')
+
+
 
 def monte_carlo(ticker, prediction_days, number_simulations, BSM=0.26, threshold1=None, threshold2=None):
     end_date = datetime.today()
@@ -137,7 +140,7 @@ def tutorial():
     tutorial_window= Toplevel(window)
     tutorial_window.title('Monte Carlo Simulation Tutorial ')
     tutorial_window.geometry('900x700')
-    ttk.Label(tutorial_window, text=f'Monte Carlo Simulatuon Tutorual\n\n 1)Enter a ticker (Find on Yahoo finance)\n\n 2)Enter the amount of days you want to project the shareprice\n Enter the amount of times you want to run the simulation (recommend 500)\n\n3)You must then enter the BSM.\n This is the implied volatility you are assuming\nYou should try different volatilities between 0 and 1 and see how the simulation reacts\nYou can find the actual implied volatility of your stock by looking for the OPtions chain on yahoo finance or bloomberg\n\n4) Once you have pressed run you will see the simulation graphic, you can still update all of the inputs and view the changes\n\n\n\nIf you have any questions please contact Mark Henry', foreground='black').grid(row=2, column=0,sticky='w')
+    ttk.Label(tutorial_window, text=f'Monte Carlo Simulatuon Tutorual\n\n 1)Enter a ticker (Find on Yahoo finance)\n\n 2)Enter the amount of days you want to project the shareprice\n Enter the amount of times you want to run the simulation (recommend 500)\n\n3)You must then enter the BSM.\n This is the implied volatility you are assuming\nYou should try different volatilities between 0 and 1 and see how the simulation reacts\nYou can find the actual implied volatility of your stock by looking for the OPtions chain on yahoo finance or bloomberg\n\n4) Once you have pressed run you will see the simulation graphic, you can still update all of the inputs and view the changes\n\n\n\nIf you have any questions please contact Mark Henry').grid(row=2, column=0,sticky='w')
 
 def save_figure():
     global fig
@@ -153,9 +156,6 @@ frame.grid(row=0, column=0, sticky=(tk.W, tk.E, tk.N, tk.S))
 
 tutorial_button = ttk.Button(frame, text="Read tutorial", command=tutorial)
 tutorial_button.grid(row=0, column=2, columnspan=1)
-
-save_button = ttk.Button(frame, text="Save Figure", command=save_figure)
-save_button.grid(row=7, column=0, columnspan=1)
 
 ttk.Label(frame, text="Ticker (Required):").grid(row=0, column=0, sticky=tk.W)
 ticker_entry = ttk.Entry(frame)
@@ -183,5 +183,11 @@ threshold2_entry.grid(row=5, column=1, sticky=(tk.W, tk.E))
 
 run_button = ttk.Button(frame, text="Run Simulation", command=run_simulation)
 run_button.grid(row=6, column=0, columnspan=2)
+
+save_button = ttk.Button(frame, text="Save Figure", command=save_figure)
+save_button.grid(row=7, column=0, columnspan=2)
+
+label_font = font.Font(family="Helvetica", size=10)
+ttk.Label(frame, text="Mark Henry 2024 All rights reserved.", font=label_font).grid(row=9, column=0, sticky=tk.W)
 
 window.mainloop()
